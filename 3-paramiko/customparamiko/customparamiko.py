@@ -27,29 +27,17 @@ def close(ssh_client):
         print('Closing connection')
         ssh_client.close()
 
-# if __name__ == '__main__':
-#     router1 = {'server_ip': '10.1.1.10', 'server_port': '22', 'user':'u1', 'passwd':'cisco'}
-#     client = connect(**router1)
-#     shell = get_shell(client)
-
-#     send_command(shell, 'enable')
-#     send_command(shell, 'cisco') # this is the enable password
-#     send_command(shell, 'term len 0')
-#     send_command(shell, 'sh version')
-#     send_command(shell, 'sh ip int brief')
-
-#     output = show(shell)
-#     print(output)
+if __name__ == '__main__':
+    client = connect('10.20.30.1', 22, 'iman', 'iman')
+    shell = get_shell(client)
+    send_command(shell, 'enable')
+    # send_command(shell, 'password') # uncommend when enable password was required
+    send_command(shell, 'conf t')
+    send_command(shell, 'do sh ip int bri')
+    output = show(shell)
+    print(output)
 
 
 
 
 
-client = connect('10.20.30.1', 22, 'iman', 'iman')
-shell = get_shell(client)
-send_command(shell, 'enable')
-# send_command(shell, 'password') # uncommend when enable password was required
-send_command(shell, 'conf t')
-send_command(shell, 'do sh ip int bri')
-output = show(shell)
-print(output)
