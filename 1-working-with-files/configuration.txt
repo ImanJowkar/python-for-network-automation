@@ -1,6 +1,27 @@
-Open file in read and write modeip address 3.3.3.3 255.255.255.255
-exit
-router ospf 1
-network 0.0.0.0 0.0.0.0 area 0
-distance 60
-default-information originate
+int fa 1/0
+ip addr 10.10.23.2 255.255.255.0
+no sh
+
+int fa 0/0
+ip addr 10.10.25.2 255.255.255.0
+no sh
+
+
+router eigrp my-eig-1
+address-family ipv4 unicast autonomous-system 8
+network 10.10.23.2 0.0.0.0
+network 10.10.25.2 0.0.0.0
+
+af-interface fast 1/0
+authentication mode hmac-sha-256 test
+hello-interval 10
+hold-time 40
+exit-af-interface
+
+af-interface fa 0/0
+authentication mode hmac-sha-256 test
+hello-interval 10
+hold-time 40
+exit-af-interface
+
+
