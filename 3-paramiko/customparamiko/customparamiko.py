@@ -9,6 +9,7 @@ def connect(server_ip, server_port, user, passwd):
                        look_for_keys=False, allow_agent=False)
     return ssh_client
 
+
 def get_shell(ssh_client):
     shell = ssh_client.invoke_shell()
     return shell
