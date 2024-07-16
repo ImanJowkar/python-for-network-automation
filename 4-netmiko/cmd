@@ -1,0 +1,4 @@
+ip access-list extended acl1
+permit ip any any
+
+do sh ip acces
