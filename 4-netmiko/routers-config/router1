@@ -1,0 +1,4 @@
+
+int serial 5/3
+no sh
+ip addr 1.1.1.1 255.255.255.252

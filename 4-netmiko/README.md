@@ -7,5 +7,6 @@
 
 ```
 pip install netmiko
+pip install pyyaml
 
 ```
