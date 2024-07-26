@@ -7,7 +7,7 @@ def backup(router):
     month = datetime.today().month
     day = datetime.today().day
 
-    client = customparamiko.connect(**router1)
+    client = customparamiko.connect(**router)
     shell = customparamiko.get_shell(client)
     customparamiko.send_command(shell, 'terminal length 0\n')
     customparamiko.send_command(shell, "conf t")
