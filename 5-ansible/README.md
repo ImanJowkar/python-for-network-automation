@@ -28,6 +28,18 @@ ssh_args = -o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group14-s
 
 
 
+
+```
+
+### add ssh config 
+```
+vim .ssh/config
+
+
+Host 192.168.229.170
+    KexAlgorithms +diffie-hellman-group-exchange-sha1
+    HostkeyAlgorithms +ssh-rsa
+    Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
 ```
 
 
