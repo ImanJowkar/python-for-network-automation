@@ -1,0 +1,14 @@
+- name: Show routing table
+  hosts: routers_cisco
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: run commands
+      ios_command:
+        commands:
+          - show ip route
+          - show ip int bri
+      register: output
+
+    - name: show the result
+      debug: var=output.stdout_lines

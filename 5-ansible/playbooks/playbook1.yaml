@@ -1,0 +1,11 @@
+- name: Show routing table
+  hosts: routers_cisco
+  gather_facts: false
+
+  tasks:
+    - name: show ip route
+      raw: show ip route
+      register: output
+
+    - name: show the result
+      debug: var=output.stdout_lines

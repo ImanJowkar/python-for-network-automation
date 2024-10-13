@@ -1,0 +1,15 @@
+- name: Show routing table
+  hosts: routers_cisco
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: run commands
+      ios_command:
+        commands:
+          - show run
+      register: output
+
+    - name: save output to a file
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "/home/iman/ansible/{{ inventory_hostname }}-config.txt"

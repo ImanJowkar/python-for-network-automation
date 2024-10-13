@@ -2,32 +2,17 @@
 
 ![img](img/1.png)
 
-## Rockey linux
 ```
-dnf update
-dnf install epel-release
-dnf install vim net-tools traceroute htop
-dnf install ansible
+sudo apt install python3-venv
 
-
-
-
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
 
 ansible --version
-ansible --list-hosts all
 
-
-# add below config to /etc/ansible/ansible.cfg
-------
-[ssh_connection]
-ssh_args = -o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-------
-
-
-
-
-
+sudo apt install sshpass
 
 ```
 
@@ -35,40 +20,45 @@ ssh_args = -o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group14-s
 ```
 vim .ssh/config
 
-
-Host 192.168.229.170
+Host *
     KexAlgorithms +diffie-hellman-group-exchange-sha1
     HostkeyAlgorithms +ssh-rsa
     Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
-```
 
+
+
+# run ansible command
+
+ansible --list-hosts all
+ansible routers_cisco -m raw -a "show ip int bri" -u iman -k
+
+# run a playbook
+ansible-playbook playbook1.yaml -u iman -k
+
+ansible-playbook playbook2.yaml -u iman -k
+
+
+
+```
+![img](img/2.png)
+
+
+```
+ansible-playbook playbook3.yaml -u iman -k
+
+```
 
 ## R1
 
 ```
 
-int fa 1/0
-no sh
-ip address dhcp
-ip nat outside
-
 int fa 0/0
 no sh
-ip addr 10.10.1.1 255.255.255.0
-ip nat inside
-
-
-
-ip access-list standard NAT-ACL
-permit 10.10.1.0 0.0.0.255
-exit
-
-ip nat inside source list NAT-ACL interface fastEthernet 1/0
-
+ip address dhcp
 
 
 ip domain-name iman.local
-crypto key generate rsa
+crypto key generate rsa modulus 2048
 ip ssh version 2
 
 
@@ -82,41 +72,24 @@ transport input ssh
 
 
 
-## R5
+## R2
 
 ```
 
 
 int fa 0/0
 no sh
-ip addr 10.10.1.5 255.255.255.0
+ip address dhcp
 
 
-
-```
-
-## R4
-
-```
+ip domain-name iman.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
 
 
-int fa 0/0
-no sh
-ip addr 10.10.1.4 255.255.255.0
-
-
-
-```
-
-## R6
-
-```
-
-
-int fa 0/0
-no sh
-ip addr 10.10.1.6 255.255.255.0
-
-
+username iman privilege 15 secret iman
+line vty 0 2
+login local
+transport input ssh
 
 ```
