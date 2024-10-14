@@ -46,7 +46,33 @@ ansible-playbook playbook2.yaml -u iman -k
 ```
 ansible-playbook playbook3.yaml -u iman -k
 
+
+
+
+# ansible vault
+ansible-vault create vault.yaml
+
+# add password and sensetive data to this file like below
+--------------------------------------
+router1_become_pass: pass
+router1_ssh_pass: pass
+
+router2_become_pass: pass
+router2_become_pass: pass
+-----------------------------------------
+
+
+ansible-vault view vault.yaml # veiw the vault data
+ansible-vault rekey vault.yaml # change the vault password
+ansible-vault edit vault.yaml # edit the vault file
+
+
+ansible-playbook playbook3.yaml --ask-vault-pass -e@./vault.yaml
+
 ```
+
+
+
 
 ## R1
 
