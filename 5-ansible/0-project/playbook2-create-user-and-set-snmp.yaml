@@ -1,0 +1,25 @@
+- name: create a user and set snmp
+  hosts: routers_cisco
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: create a user
+      ios_command:
+        commands:
+          - conf t
+          - username imanansible secret imanansible
+    - name: set snmp on these device
+      ios_command:
+        commands:
+          - conf t
+          - ip access-list standard snmp-acl
+          - permit 10.10.10.254 # this is the zabbix server or zabbix proxy ip address
+          - exit
+          - snmp-server community iman ro snmp-acl
+
+    - name: save the configurations
+      ios_command:
+        commands:
+          - command: "write"
+            prompt: "[confirm]"
+            answer: "\r"

@@ -18,7 +18,7 @@ sudo apt install sshpass
 
 ### add ssh config 
 ```
-vim .ssh/config
+vim ~/.ssh/config
 
 Host *
     KexAlgorithms +diffie-hellman-group-exchange-sha1

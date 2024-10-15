@@ -1,0 +1,8 @@
+- name: take a backup with ios_config
+  hosts: routers_cisco
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Backup running config with ios_config module
+      ios_config:
+        backup: yes

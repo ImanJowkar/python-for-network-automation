@@ -1,0 +1,18 @@
+- name: take a backup
+  hosts: routers_cisco
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: show run commands
+      ios_command:
+        commands:
+          - show run
+      register: output
+
+    - name: show the output variable
+      debug: var=output
+
+    - name: save output to a file
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "/home/iman/config-cisco-router-with-ansible/test/backup/{{ inventory_hostname }}-config.txt"
