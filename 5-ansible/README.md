@@ -23,8 +23,7 @@ vim ~/.ssh/config
 Host *
     KexAlgorithms +diffie-hellman-group-exchange-sha1
     HostkeyAlgorithms +ssh-rsa
-    Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
-
+    Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc,aes128-ctr,aes192-ctr,aes256-ctr
 
 
 # run ansible command
