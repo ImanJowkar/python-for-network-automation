@@ -118,3 +118,16 @@ login local
 transport input ssh
 
 ```
+
+
+
+
+
+# Ansible Ad-hoc
+```
+ansible all -m raw  -a "show version" -u iman -k
+
+ansible routers-cisco -m raw -a "sh ip int bri" -u iman -k
+
+ansible switches -m raw -a "sh arp" -u iman -k | grep 'SUCCESS\|abcd'
+```
