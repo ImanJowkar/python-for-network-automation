@@ -1,0 +1,48 @@
+- name: Config Basic Cisco Devices
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  vars:
+    snmp_server: "192.168.229.167"
+    snmp_community: "test"
+    logging_server: "192.168.229.167"
+    logging_level: "informational"
+    access_list_name: "SNMP_ACCESS"
+    dns_server: "8.8.8.8"
+    ntp_server_global: "172.16.1.10"
+    ntp_server_local: "172.16.1.10"
+    timezone: "Asia-Tehran 3 30"
+  tasks:
+    - name: config Router as an ntp server
+      ios_config:
+        lines:
+          - ip name-server {{ dns_server }}
+          - ip domain-lookup
+          - ntp server {{ ntp_server_global }}
+          - clock timezone {{ timezone }}
+
+      when: inventory_hostname == "R4"
+
+    - name: setup ntp server and client
+      ios_config:
+        lines:
+          - ntp server {{ ntp_server_local }}
+          - clock timezone {{ timezone }}
+      when: inventory_hostname != "R4"
+
+    - name: Create access list to allow SNMP manager access
+      ios_config:
+        lines:
+          - permit {{ snmp_server }}
+        parents: ip access-list standard {{ access_list_name }}
+
+    - name: Configure SNMP server
+      ios_config:
+        lines:
+          - snmp-server community {{ snmp_community }} RO {{ access_list_name }}
+
+    - name: Configure logging
+      ios_config:
+        lines:
+          - logging host {{ logging_server }}
+          - logging trap {{ logging_level }}
