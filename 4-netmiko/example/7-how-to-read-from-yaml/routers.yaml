@@ -1,0 +1,14 @@
+routers:
+  - host: 10.10.1.1
+    username: user
+    password: pass
+    port: 22
+    device_type: cisco_ios
+    secret: enable-pass
+
+  - host: 10.10.1.4
+    username: user
+    password: pass
+    port: 22
+    device_type: cisco_ios
+    secret: enable-pass

@@ -1,0 +1,3 @@
+int loop back 1
+ip addr 10.20.30.1 255.255.255.0
+no sh
