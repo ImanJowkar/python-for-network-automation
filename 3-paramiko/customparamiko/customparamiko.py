@@ -28,17 +28,3 @@ def close(ssh_client):
         print('Closing connection')
         ssh_client.close()
 
-if __name__ == '__main__':
-    client = connect('10.20.30.1', 22, 'iman', 'iman')
-    shell = get_shell(client)
-    send_command(shell, 'enable')
-    # send_command(shell, 'password') # uncommend when enable password was required
-    send_command(shell, 'conf t')
-    send_command(shell, 'do sh ip int bri')
-    output = show(shell)
-    print(output)
-
-
-
-
-
