@@ -1,7 +1,7 @@
 import yaml
 
 # Define the path to the YAML file
-yaml_file_path = 'routers1.yaml'
+yaml_file_path = 'routers.yaml'
 
 # Read the YAML file
 

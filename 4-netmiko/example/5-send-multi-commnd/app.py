@@ -20,10 +20,10 @@ if '>' in prompt:
 
 
 cmd = '''
-int loopback 0
-ip addr 10.20.30.1 255.255.255.0
-no sh
+ip access-list standard snmp-acl
+permit 192.168.40.10
 exit
+snmp-server community iman ro snmp-acl
 
 '''
 

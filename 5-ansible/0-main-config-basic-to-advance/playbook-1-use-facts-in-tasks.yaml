@@ -1,0 +1,36 @@
+---
+- name: Save and use Cisco IOS facts
+  hosts: all
+  gather_facts: yes
+  connection: ansible.netcommon.network_cli
+  tasks:
+    - name: Gather Cisco IOS facts
+      ios_facts:
+      register: ios_facts
+
+    - name: Save specific facts to a variable
+      debug:
+        msg: "{{ ios_facts }}"
+
+    - name: Save specific facts to a variable
+      set_fact:
+        device_info:
+          hostname: "{{ ios_facts.ansible_facts.ansible_net_hostname }}"
+          ios_version: "{{ ios_facts.ansible_facts.ansible_net_version }}"
+
+    - name: Display saved facts
+      debug:
+        var: device_info
+
+    - name: Configure NTP only if running IOS version 15.4
+      ios_config:
+        lines:
+          - ntp server 8.8.8.8
+      when: "'15.4' in device_info.ios_version"
+
+    - name: Create loopback interface only if hostname contains 'R4'
+      ios_config:
+        lines:
+          - int loopback 1
+          - ip addr 192.168.1.1 255.255.255.255
+      when: "'R4' in device_info.hostname"
