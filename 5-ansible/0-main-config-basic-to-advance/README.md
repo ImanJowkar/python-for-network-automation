@@ -87,9 +87,9 @@ Host *
 
 ```
 ansible-inventory --list
+ansible-inventory -i inventory.ini -y --list   # convert inventory file to a yaml file
 
-
-
+ansible-vault encrypt_string iman
 
 
 

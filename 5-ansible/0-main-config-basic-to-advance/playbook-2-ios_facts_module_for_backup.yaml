@@ -1,0 +1,22 @@
+---
+- name: Save and use Cisco IOS facts
+  hosts: R4
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: Gather Cisco IOS facts
+      ios_facts:
+        gather_subset: all
+      register: ios_facts
+
+    - name: Save specific facts to a variable
+      set_fact:
+        backup:
+          backup: "{{ ios_facts.ansible_facts.ansible_net_config }}"
+
+
+
+    - name: Save the configuration to a file
+      copy:
+        content: "{{ backup.backup  }}"
+        dest: "./{{ inventory_hostname }}_config.txt"
