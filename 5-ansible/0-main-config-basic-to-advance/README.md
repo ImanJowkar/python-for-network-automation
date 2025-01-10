@@ -15,6 +15,9 @@ Host *
 
 #### Install Preqs.
 ```
+
+
+
 sudo apt install python3-venv
 
 python3 -m venv venv
@@ -25,6 +28,18 @@ pip install -r requirements.txt
 ansible --version
 
 sudo apt install sshpass
+
+
+
+# you can install different version of python
+
+apt install python3.11 python3.11-venv
+python3.11 -m venv venv
+source venv/bin/activate
+
+
+
+
 
 ```
 
@@ -86,13 +101,38 @@ Host *
 #### Add-Hoc command
 
 ```
+ansible-config init > ansible.cfg
+ansible-config init --disabled > ansible.cfg   # all config will be comment
+
+
+# install a module
+ansible-galaxy collection install cisco.ios
+ansible-galaxy collection list
+
+
+ansible-doc cisco.ios.ios_command
+ansible-doc cisco.ios.ios_config
+
+
+
+
+ansible --version
+
 ansible-inventory --list
 ansible-inventory -i inventory.ini -y --list   # convert inventory file to a yaml file
+ansible-inventory  --graph
+
+
+
+
+ansible all -m raw -a "sh ip int bri"
+ansible R4 -m ios_command -a "command='show ip int bri'"
+ansible R4 -m cisco.ios.ios_command -a "commands='show ip int bri'" -c ansible.netcommon.network_cli
+
+
+
 
 ansible-vault encrypt_string iman
-
-
-
 
 
 ```
