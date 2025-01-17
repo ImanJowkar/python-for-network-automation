@@ -121,6 +121,7 @@ ansible --version
 ansible-inventory --list
 ansible-inventory -i inventory.ini -y --list   # convert inventory file to a yaml file
 ansible-inventory  --graph
+ansible-inventory --host SW-Core-2
 
 
 
@@ -133,6 +134,15 @@ ansible R4 -m cisco.ios.ios_command -a "commands='show ip int bri'" -c ansible.n
 
 
 ansible-vault encrypt_string iman
+
+
+```
+
+
+#### ios_command
+
+only works on enable mode
+```
 
 
 ```

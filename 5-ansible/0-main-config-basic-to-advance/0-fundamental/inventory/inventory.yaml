@@ -1,0 +1,20 @@
+all:
+  children:
+    Router:
+      children:
+        Cisco_router:
+          hosts:
+            R4:
+        Mikrotik_router:
+          hosts:
+            mik1:
+    switch:
+      children:
+        SW_acs:
+          hosts:
+            SW-acs-3:
+            SW-acs-4:
+            SW-acs-5:
+        SW_core:
+          hosts:
+            SW-Core-2:
