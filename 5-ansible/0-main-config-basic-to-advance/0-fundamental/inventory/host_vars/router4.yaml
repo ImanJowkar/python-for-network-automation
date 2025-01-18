@@ -1,0 +1,32 @@
+ansible_become_pass: iman
+ansible_host: 10.10.200.1
+ansible_ssh_pass: iman
+ansible_user: iman
+
+int_ip:
+  - name: loopback0
+    description: "connected to ISP for BGP Neighborship"
+    ip_addr: 10.51.1.2
+    mask: 255.255.255.0
+  - name: loopback1
+    description: "used for PBR"
+    ip_addr: 10.55.2.1
+    mask: 255.255.255.0
+  - name: loopback2
+    description: "used for something"
+    ip_addr: 10.51.132.2
+    mask: 255.255.255.0
+
+usernames:
+  - user10:
+    name: iman
+    priv: 15
+    secret: iman
+  - user11:
+    name: sam
+    priv: 5
+    secret: sam
+  - user12:
+    name: hossein
+    priv: 1
+    secret: test

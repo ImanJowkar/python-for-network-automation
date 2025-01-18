@@ -4,7 +4,7 @@ all:
       children:
         Cisco_router:
           hosts:
-            R4:
+            router4:
         Mikrotik_router:
           hosts:
             mik1:

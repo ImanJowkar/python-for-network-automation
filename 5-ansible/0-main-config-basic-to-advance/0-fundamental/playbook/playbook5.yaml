@@ -1,0 +1,25 @@
+---
+- name: Save and use Cisco IOS facts
+  hosts: R4
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: Gather Cisco IOS facts
+      ios_command:
+        commands:
+          - show ip int bri
+          - show int fast 1/0
+          - show ip ospf nei
+          - show bgp ipv4 unicast summary
+          - show ip access
+          - write
+        wait_for:
+          - result[1] contains  "line protocol is up"
+          - result[3] contains  "neighborship is up"
+        interval: 2
+        retries: 4
+        match: all # any
+
+      register: myoutput
+
+

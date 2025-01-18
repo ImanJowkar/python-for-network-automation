@@ -1,0 +1,15 @@
+- name: Save and use Cisco IOS facts
+  hosts: router4 
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: show username
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ usernames }}" 
+
+    - name: create username on devices
+      ios_config:
+        lines:
+          - username {{ item.name }} privi {{ item.priv }} secret {{ item.secret }}
+      loop: "{{ usernames }}"

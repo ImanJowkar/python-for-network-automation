@@ -1,0 +1,40 @@
+---
+- name: Save and use Cisco IOS facts
+  hosts: router4
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: useing ios_config
+      ios_config:
+        lines: 
+          - hostname {{ inventory_hostname }}
+          - logging host {{ logging_host }}
+          - ntp server {{ ntp_server }}
+
+    - name: create loopback interface on router cisco
+      ios_config:
+        lines:
+          - desc this is loopback interface
+          - ip addr 10.20.30.1 255.255.255.0
+        parents:
+          - interface loopback 20
+
+    - name: create multiple loopback interface
+      ios_config:
+        lines:
+          - description {{ item.description }}
+          - ip address {{ item.ip_addr }} {{ item.mask }}
+        parents:
+          - interface {{ item.name }}
+      loop: "{{ int_ip }}"
+
+    - name: show the loopback interface
+      ios_command:
+        commands:
+          - show interface {{ item.name }}
+      loop: "{{ int_ip }}"
+      register: interface_detial
+
+    - name: show vars
+      debug:
+        msg: "{{ interface_detial }}"

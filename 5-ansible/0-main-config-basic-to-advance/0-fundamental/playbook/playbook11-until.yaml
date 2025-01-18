@@ -1,0 +1,18 @@
+- name: Save and use Cisco IOS facts
+  hosts: router4 
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: check of tunnel int is up or down
+      ios_command:
+        commands:
+          - "show ip int bri | inc Tunnel0"
+      register: tunnel_status
+      until: "'down' not in tunnel_status.stdout_lines[0][0] "
+      retries: 5
+      delay: 2
+
+
+    - name: show output
+      debug:
+        msg: "{{ tunnel_status.stdout_lines[0][0] }}"

@@ -1,0 +1,20 @@
+---
+- name: Save and use Cisco IOS facts
+  hosts: R4
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: Gather Cisco IOS facts
+      ios_command:
+        commands:
+          - show ip int bri
+          - show int eth 4/1
+          - show ip ospf neighbor
+          - show interfaces eth 4/1
+          - sh ip eigrp neighbors
+      register: myoutput
+
+    - name: show output of above task
+      debug:
+        #msg: "{{ myoutput }}"
+        msg: "{{ myoutput.stdout_lines[2] }}"
