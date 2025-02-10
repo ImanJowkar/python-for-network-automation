@@ -1,0 +1,19 @@
+- name: Save and use Cisco IOS facts
+  hosts: SW-Core-2
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  tasks:
+    - name: save version
+      ios_command:
+        commands:
+          - show version
+      register: output
+    - name: show version of the ios
+      debug:
+        msg: "{{ output }}"
+
+    - name: config ntp server
+      ios_config:
+        lines:
+          - ntp serve {{ ntp_server }}
+          - loggin host {{ logging_server }}

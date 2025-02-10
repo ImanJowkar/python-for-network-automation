@@ -14,8 +14,8 @@
     - name: create loopback interface on router cisco
       ios_config:
         lines:
-          - desc this is loopback interface
-          - ip addr 10.20.30.1 255.255.255.0
+          - description this is loopback interface
+          - ip address 10.20.30.1 255.255.255.0
         parents:
           - interface loopback 20
 

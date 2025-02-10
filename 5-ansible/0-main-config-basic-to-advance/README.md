@@ -111,7 +111,7 @@ ansible-galaxy collection list
 
 
 ansible-doc cisco.ios.ios_command
-ansible-doc cisco.ios.ios_config
+write some playbook with ios_config and after options good production please
 
 
 
@@ -134,6 +134,15 @@ ansible R4 -m cisco.ios.ios_command -a "commands='show ip int bri'" -c ansible.n
 
 
 ansible-vault encrypt_string iman
+
+
+```
+
+#### playbook
+
+```
+ansible-playbook --ask-become-pass playbook1.yaml --start-at-task="task name"
+
 
 
 ```
